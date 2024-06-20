@@ -19,3 +19,14 @@ then
   npm install
   npm run dev
 ```
+
+## Firebase
+### add app
+```
+npm install firebase
+
+npm install -g firebase-tools
+```
+
+### create firebase configuration file 
+under /src, create firebase.js for configuration
