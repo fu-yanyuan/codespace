@@ -16,8 +16,8 @@ const calendarData = [
 
 const Heatmap = () => {
   return (
-    <div class="rounded-lg h-auto w-full bg-neutral-800">
-      <div class="h-[180px] min-h-[180px] w-full pl-[36px] pt-[14px]">
+    <div className="rounded-lg h-auto w-full bg-neutral-800">
+      <div className="h-[180px] min-h-[180px] w-full pl-[36px] pt-[14px]">
         {calendarData && 
           <ActivityCalendar
             data={calendarData}
