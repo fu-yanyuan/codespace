@@ -1,9 +1,27 @@
 import { useState } from "react"
+import { db } from "../../firebase"
+import { doc, getDoc } from "firebase/firestore";
 
 const SearchBar = () => {
   const [number, setNumber] = useState('')
+  const [item, setItem] = useState(null)
 
-  const search = () => {
+  const search = async (event) => {
+    event.preventDefault()
+
+    try {
+      const docRef = doc(db, "leetcode", number);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setItem(docSnap.data())
+        console.log(docSnap.data())
+      } else {
+        setItem(null)
+      }
+    } catch (err) {
+      console.log(err)
+    }
     
   }
 
@@ -14,7 +32,7 @@ const SearchBar = () => {
 
   return (
     <div className="rounded-lg min-w-max max-w-full w-full bg-neutral-800 p-4">
-      <div class="flex flex-row items-center justify-center">
+      <div className="flex flex-row items-center justify-center">
         <div className="join">
           <input type="number" 
                 className="input join-item input-bordered input-sm w-[100px]" 
