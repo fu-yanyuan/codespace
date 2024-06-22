@@ -65,9 +65,9 @@ const SearchResult = ({ item }) => {
         <SolvedStatus initialSelection={data.solvedWay} editMode={true} onSelectionChange={handleDataChange}/>
       </div>
       <div className="mx-2 flex items-center justify-end" style={{flex: '70 0 auto', width: '80px'}}>
-        {item.status === 1 ? (
+        {item.status === 9 ? (
           <button className="btn btn-error btn-xs" onClick={null}>Modify</button> 
-        ) : item.status === 0 ? (
+        ) : item.status === 1 ? (
           <button className="btn btn-success btn-xs" onClick={null}>Solve</button> 
         ) : (
           <>
