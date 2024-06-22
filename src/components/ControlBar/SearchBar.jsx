@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { db } from "../../firebase"
 import { doc, getDoc } from "firebase/firestore";
+import Line from "../Basic/Line";
+import SearchResult from "./SearchResult";
 
 const SearchBar = () => {
   const [number, setNumber] = useState('')
@@ -42,6 +44,12 @@ const SearchBar = () => {
           <button className="btn join-item rounded-r-full btn-outline btn-warning btn-sm" type="submit" onClick={search}>Search</button>
         </div>
       </div>
+      { item &&
+        <>
+          <Line />
+          <SearchResult item={item}/>
+        </>
+      }
     </div>
   )
 }
