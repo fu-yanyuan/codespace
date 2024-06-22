@@ -1,5 +1,10 @@
 const StatusIcon = ({status}) => {
-  if (status === 1) {
+  // 0 - unseen
+  // 1 - attempted
+  // 9 - sovled
+  // 2-8 - leave for future use
+
+  if (status === 9) {
     return (
       <>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="h-4.5 w-4.5 text-green-400 inline-block shrink-0 fill-none stroke-current">
@@ -7,7 +12,7 @@ const StatusIcon = ({status}) => {
         </svg>
       </>
     )
-  } else if (status === 0) {
+  } else if (status === 1) {
     return (
       <>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="h-4.5 w-4.5 text-yellow-400 inline-block shrink-0 fill-none stroke-current">
