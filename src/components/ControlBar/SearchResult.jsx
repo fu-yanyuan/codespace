@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Rating from "../Basic/Rating"
 import SolvedStatus from "../Basic/SolvedStatus"
 import StatusIcon from "../Basic/StatusIcon"
+import { attemptProblem, solveProblem, modifyProblem } from "../../firebase"
 
 const SearchResult = ({ item }) => {
   const [data, setData] = useState({
@@ -66,13 +67,13 @@ const SearchResult = ({ item }) => {
       </div>
       <div className="mx-2 flex items-center justify-end" style={{flex: '70 0 auto', width: '80px'}}>
         {item.status === 9 ? (
-          <button className="btn btn-error btn-xs" onClick={null}>Modify</button> 
+          <button className="btn btn-error btn-xs" onClick={(e) => modifyProblem(e, data)}>Modify</button> 
         ) : item.status === 1 ? (
-          <button className="btn btn-success btn-xs" onClick={null}>Solve</button> 
+          <button className="btn btn-success btn-xs" onClick={(e) => solveProblem(e, data)}>Solve</button> 
         ) : (
           <>
-            <button className="btn btn-warning btn-xs mr-2" onClick={null}>Attempt</button>
-            <button className="btn btn-success btn-xs" onClick={null}>Solve</button>            
+            <button className="btn btn-warning btn-xs mr-2" onClick={(e) => attemptProblem(e, data)}>Attempt</button>
+            <button className="btn btn-success btn-xs" onClick={(e) => solveProblem(e, data)}>Solve</button>            
           </>
         )}
       </div>

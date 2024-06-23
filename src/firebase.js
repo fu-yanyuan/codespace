@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getFirestore, collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
+import { getFirestore, collection, doc, query, where, getDocs, orderBy, limit, updateDoc, serverTimestamp } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -88,6 +88,62 @@ export const getRecentModified = async (setItemList, limitNum) => {
     
     setItemList(items)
 
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+/* Search Result Buttons */
+
+export const solveProblem = async (e, data) => {
+  e.preventDefault()
+
+  const docRef = doc(db, "leetcode", String(data.number))
+  try {
+    await updateDoc(docRef, {
+      status: 9,
+      level: data.level,
+      solvedWay: data.solvedWay,
+      first_solved: serverTimestamp(),
+      last_modified: serverTimestamp() 
+    })    
+
+    window.location.reload()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const modifyProblem = async (e, data) => {
+  e.preventDefault()
+
+  const docRef = doc(db, "leetcode", String(data.number))
+  try {
+    await updateDoc(docRef, {
+      level: data.level,
+      solvedWay: data.solvedWay,
+      last_modified: serverTimestamp() 
+    })
+
+    window.location.reload()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const attemptProblem = async (e, data) => {
+  e.preventDefault()
+
+  const docRef = doc(db, "leetcode", String(data.number))
+  try {
+    await updateDoc(docRef, {
+      status: 1,
+      level: data.level ? data.level : 0,
+      solvedWay: data.solvedWay ? data.solvedWay : 0,
+      last_modified: serverTimestamp() 
+    })
+
+    window.location.reload()
   } catch (err) {
     console.log(err)
   }
