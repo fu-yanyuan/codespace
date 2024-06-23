@@ -1,35 +1,13 @@
 import AttemptedStack from "./AttemptedStack/AttemptedStack"
 import SearchBar from "./ControlBar/SearchBar"
 import RecentContainer from "./Recent/RecentContainer"
-import { db } from "../firebase"
-import { collection, query, where, orderBy, getDocs } from "firebase/firestore"
+import { getAttempts } from "../firebase"
 import { useState, useEffect } from "react"
 
 const ControlContainer = () => {
   const [itemLists, setItemLists] = useState(null)
 
-  const getAttempts = async () => {
-    try {
-      const collectionRef = collection(db, "leetcode")
-      const q = query(collectionRef, where('status', '==', 1))
-      const querySnapShot = await getDocs(q)
-      // querySnapShot.forEach((doc) => {
-      //   // doc.data() is never undefined for query doc snapshots
-      //   console.log(doc.id, " => ", doc.data());
-      // })
-
-      const items = querySnapShot.docs.map(doc => ({
-        ...doc.data()
-      }));
-      setItemLists(items)
-      // console.log(items)
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {getAttempts()}, [])
+  useEffect(() => {getAttempts(setItemLists)}, [])
 
   return (
     <div className="control-container flex flex-row overflow-visible">
