@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getFirestore, collection, doc, query, where, getDocs, orderBy, limit, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, collection, doc, query, where, getDocs, orderBy, limit, updateDoc, serverTimestamp, count } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -144,6 +144,51 @@ export const attemptProblem = async (e, data) => {
     })
 
     window.location.reload()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+/* calendar */
+export const getCalendarData = async (date_str) => {
+  const calcLevel = (value) => {
+    if (value === 0) {
+      return 0
+    } else if (value > 0 && value < 3) {
+      return 1
+    } else if (value >= 3 && value < 5) {
+      return 2
+    } else if (value >= 5 && value < 7) {
+      return 3
+    } else {
+      return 4
+    }
+  }
+
+  try {
+    console.log(date_str)
+
+    const collectionRef = collection(db, "activity_calendar")
+    const q = query(collectionRef, where('date', '>=', date_str), orderBy('date'))
+    const querySnapShot = await getDocs(q)   
+    
+    // const items = querySnapShot.docs.map(doc => ({
+    //   ...doc.data()
+    // }));
+
+    const items = querySnapShot.docs.map(doc => {
+      const data = doc.data()
+      return {
+        date: data.date,
+        count: data.count,
+        level: calcLevel(data.count)
+      }
+    });
+    
+    console.log(items)
+    // setCalendarData(items)
+    return items
+
   } catch (err) {
     console.log(err)
   }

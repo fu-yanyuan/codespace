@@ -34,7 +34,7 @@ const RecentItem = ({data}) => {
         <Rating ratingName={data.number} level={data.level} editMode={false} onRatingChange={null}/>
       </div>
       <div className="mx-2 flex items-center justify-center" style={{flex: '30 0 auto', width: '80px'}}>
-        <p className="text-sm text-neutral-300">{solvedStatus[data.solved_status]}</p>
+        <p className="text-sm text-neutral-300">{solvedStatus[data.solvedWay]}</p>
       </div>
     </div>
   )
