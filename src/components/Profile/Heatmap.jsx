@@ -3,53 +3,8 @@ import { Tooltip as MuiTooltip } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { getCalendarData } from '../../firebase'
 
-const calendarData2 = [
-  {
-    date: "2023-06-20",
-    count: 16,
-    level: 3,
-    solved: 16
-  },
-  {
-    date: "2024-06-20",
-    count: 16,
-    level: 3,
-    attempt: 16
-  }
-]
-
 const Heatmap = () => {
   const [calendarData, setCalendarData] = useState(null)
-
-  const calcLevel = (value) => {
-    if (value === 0) {
-      return 0
-    } else if (value > 0 && value < 3) {
-      return 1
-    } else if (value >= 3 && value < 5) {
-      return 2
-    } else if (value >= 5 && value < 7) {
-      return 3
-    } else {
-      return 4
-    }
-  }
-
-  const getOneYearAgoDate = () => {
-    // Get the current date
-    const currentDate = new Date();
-    // Subtract one year from the current date
-    const pastYearDate = new Date();
-    pastYearDate.setFullYear(currentDate.getFullYear() - 1);
-  
-    // Get the year, month, and day
-    const year = pastYearDate.getFullYear();
-    const month = String(pastYearDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
-    const day = String(pastYearDate.getDate()).padStart(2, '0');
-  
-    // Format the date as 'yyyy-mm-dd'
-    return `${year}-${month}-${day}`;
-  }
 
   const getRangeDate = (n) => {
     const today = new Date();
