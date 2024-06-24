@@ -20,7 +20,7 @@ const SolvedStatus = ({initialSelection, editMode, onSelectionChange}) => {
       const newValue = e.target.value 
       setSelectedOption(newValue)
       if (onSelectionChange) {
-        onSelectionChange('solved_status', newValue)
+        onSelectionChange('solvedWay', Number(newValue))
       }
     }
 

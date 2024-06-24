@@ -11,7 +11,7 @@ const SearchResult = ({ item }) => {
     titleSlug: item.titleSlug,
     difficulty: item.difficulty,
     status: item.status, 
-    solvedWay: item.solved_status ? item.solvedWay : 0, 
+    solvedWay: item.solvedWay ? item.solvedWay : 0, 
     level: item.level ? item.level : 0
   })
 
@@ -22,7 +22,7 @@ const SearchResult = ({ item }) => {
       titleSlug: item.titleSlug,
       difficulty: item.difficulty,
       status: item.status, 
-      solvedWay: item.solved_status ? item.solvedWay : 0, 
+      solvedWay: item.solvedWay ? item.solvedWay : 0, 
       level: item.level ? item.level : 0
     })
   }, [item])
@@ -38,12 +38,13 @@ const SearchResult = ({ item }) => {
   }
 
   const handleDataChange = (key, value) => {
-    // console.log(data)
+    // console.log(key, value)
+    // console.log(typeof value)
     setData(data => ({
       ...data,
       [key] : value
     }))
-    // console.log(data)
+  //   console.log(data)
   }
 
   return (
