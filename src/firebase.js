@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getFirestore, collection, doc, query, where, getDocs, orderBy, limit, updateDoc, serverTimestamp, count } from 'firebase/firestore';
+import { getFirestore, collection, doc, query, where, getDocs, orderBy, limit, updateDoc, serverTimestamp, runTransaction } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -94,18 +94,57 @@ export const getRecentModified = async (setItemList, limitNum) => {
 }
 
 /* Search Result Buttons */
+const getCurDateStr = () => {
+  const today = new Date();
+  
+  // Get the current date in yyyy-mm-dd format
+  const currentYear = today.getFullYear();
+  const currentMonth = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+  const currentDate = String(today.getDate()).padStart(2, '0');
+  const currentDateStr = `${currentYear}-${currentMonth}-${currentDate}`;
+
+  console.log(currentDateStr)
+  return currentDateStr
+}
+
 
 export const solveProblem = async (e, data) => {
   e.preventDefault()
 
-  const docRef = doc(db, "leetcode", String(data.number))
+  const curDateStr = getCurDateStr()
+
+  const lcDocRef = doc(db, "leetcode", String(data.number))
+  const activityDocRef = doc(db, "activity_calendar", curDateStr)
+
   try {
-    await updateDoc(docRef, {
-      status: 9,
-      level: data.level,
-      solvedWay: data.solvedWay,
-      first_solved: serverTimestamp(),
-      last_modified: serverTimestamp() 
+    await runTransaction(db, async (transaction) => {
+      // set activity
+      const activityDoc = await transaction.get(activityDocRef)
+      if (activityDoc.exists()) {
+        // update
+        const newSolved = activityDoc.data().solved + 1
+        const newCount = activityDoc.data().count + 1
+        transaction.update(activityDocRef, {
+          solved: newSolved,
+          count: newCount
+        })
+      } else {
+        transaction.set(activityDocRef, {
+          date: curDateStr,
+          attempted: 0,
+          solved: 1,
+          count: 1
+        })
+      }
+
+      // update leetcode
+      transaction.update(lcDocRef, {
+        status: 9,
+        level: data.level,
+        solvedWay: data.solvedWay,
+        first_solved: serverTimestamp(),
+        last_modified: serverTimestamp() 
+      })
     })    
 
     window.location.reload()
