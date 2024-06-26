@@ -1,7 +1,7 @@
 import AttemptedStack from "./AttemptedStack/AttemptedStack"
 import SearchBar from "./ControlBar/SearchBar"
 import RecentContainer from "./Recent/RecentContainer"
-import { getAttempts } from "../firebase"
+import { getAttempts } from "../firebase/firestore"
 import { useState, useEffect } from "react"
 
 const ControlContainer = () => {

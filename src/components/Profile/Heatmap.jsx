@@ -1,7 +1,7 @@
 import ActivityCalendar from 'react-activity-calendar'
 import { Tooltip as MuiTooltip } from '@mui/material'
 import { useState, useEffect } from 'react'
-import { getCalendarData } from '../../firebase'
+import { getCalendarData } from '../../firebase/firestore'
 
 const Heatmap = () => {
   const [calendarData, setCalendarData] = useState(null)

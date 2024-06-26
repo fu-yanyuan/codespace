@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Rating from "../Basic/Rating"
 import SolvedStatus from "../Basic/SolvedStatus"
 import StatusIcon from "../Basic/StatusIcon"
-import { attemptProblem, solveProblem, modifyProblem } from "../../firebase"
+import { attemptProblem, solveProblem, modifyProblem } from "../../firebase/firestore"
 
 const SearchResult = ({ item }) => {
   const [data, setData] = useState({

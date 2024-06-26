@@ -2,7 +2,7 @@ import RecentTabs from "./RecentTabs"
 import RecentItem from "./RecentItem"
 import RecentPagination from "./RecentPagination"
 import { useState, useEffect } from "react"
-import { getRecentSolvedN, getRecentSolvedAll, getRecentModified } from "../../firebase"
+import { getRecentSolvedN, getRecentSolvedAll, getRecentModified } from "../../firebase/firestore"
 
 const RecentContainer = () => {
   const [tabValue, setTabValue] = useState(1)
