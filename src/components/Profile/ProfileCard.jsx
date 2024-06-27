@@ -1,4 +1,5 @@
 import React from 'react';
+import { doSignOut } from '../../firebase/auth';
 
 const ProfileCard = () => {
   return (
@@ -13,7 +14,7 @@ const ProfileCard = () => {
         <p>3 leetcodes per day, No Excuses</p>
         <div className="card-actions">
           <button className="btn btn-primary">Feature</button>
-          <button className="btn btn-secondary">Sign Out</button>
+          <button className="btn btn-secondary" onClick={() => doSignOut()}>Sign Out</button>
         </div>
       </div>
     </div>
