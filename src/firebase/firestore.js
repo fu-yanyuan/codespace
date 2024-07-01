@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { collection, doc, query, where, getDocs, orderBy, limit, updateDoc, serverTimestamp, runTransaction } from 'firebase/firestore';
+import { collection, doc, query, where, getDoc, getDocs, orderBy, limit, updateDoc, serverTimestamp, runTransaction } from 'firebase/firestore';
 
 export const getAttempts = async (setItemList) => {
     try {
@@ -94,11 +94,15 @@ export const solveProblem = async (e, data) => {
   
     const lcDocRef = doc(db, "leetcode", String(data.number))
     const activityDocRef = doc(db, "activity_calendar", curDateStr)
+    const summaryDocRef = doc(db, "summary", "karush1fa")
   
     try {
       await runTransaction(db, async (transaction) => {
-        // set activity
+        // reads before writes
+        const summaryDoc = await transaction.get(summaryDocRef)
         const activityDoc = await transaction.get(activityDocRef)
+
+        // set activity
         if (activityDoc.exists()) {
           // update
           const newSolved = activityDoc.data().solved + 1
@@ -123,6 +127,12 @@ export const solveProblem = async (e, data) => {
           solvedWay: data.solvedWay,
           first_solved: serverTimestamp(),
           last_modified: serverTimestamp() 
+        })
+
+        // update summary collection
+        const newValue = summaryDoc.data()[data.difficulty] + 1
+        transaction.update(summaryDocRef, {
+          [data.difficulty]: newValue
         })
       })    
   
