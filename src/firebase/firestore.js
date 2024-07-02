@@ -194,7 +194,7 @@ export const getCalendarData = async (date_str) => {
     }
   
     try {
-      console.log(date_str)
+      // console.log(date_str)
   
       const collectionRef = collection(db, "activity_calendar")
       const q = query(collectionRef, where('date', '>=', date_str), orderBy('date'))
@@ -213,7 +213,7 @@ export const getCalendarData = async (date_str) => {
         }
       });
       
-      console.log(items)
+      // console.log(items)
       // setCalendarData(items)
       return items
   
