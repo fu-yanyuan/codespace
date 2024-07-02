@@ -9,7 +9,7 @@ const ProfileCard = () => {
           {/* <img src="https://portfolio-fu-yanyuan.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffu.494bbc40.jpg&w=3840&q=75" /> */}
           <img src="https://htmlcolorcodes.com/assets/images/colors/moss-green-color-solid-background-1920x1080.png" />
       </figure>
-      <div className="card-body items-center text-center">
+      <div className="card-body items-center text-center text-neutral-300">
         <h2 className="card-title">Karush1fa</h2>
         <p>3 leetcodes per day, No Excuses</p>
         <div className="card-actions">
