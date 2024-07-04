@@ -3,7 +3,7 @@ import ProfileContainer from "./ProfileContainer"
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen min-w-[360px] bg-neutral-900">
+    <div className="min-h-screen min-w-[360px] w-screen bg-neutral-900">
       <div className="flex flex-col mx-auto w-full grow p-4 md:max-w-[888px] md:p-6 lg:max-w-screen-xl bg-neutral-900">
         <ProfileContainer />
       </div>

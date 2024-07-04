@@ -8,7 +8,7 @@ const Bar = ( { difficulty, solved, total } ) => {
   const progress = Math.round((solved / total) * 100);
 
   return (
-    <div className="rounded-lg h-[9px] w-[200px]" style={{backgroundColor: colors[difficulty][0]}}>
+    <div className="rounded-lg h-[9px] w-[150px] xl:w-[200px]" style={{backgroundColor: colors[difficulty][0]}}>
       <div className="rounded-lg h-[9px]"
         style={{width: `${progress}%`, backgroundColor: colors[difficulty][1]}}
       ></div>
