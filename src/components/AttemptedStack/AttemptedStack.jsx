@@ -3,8 +3,8 @@ import UnsolvedItem from "./UnsolvedItem"
 const AttemptedStack = ({ itemLists }) => {
 
   return (
-    <div className="rounded-lg flex w-full flex-col p-4 pt-[21px] bg-neutral-800">
-      <div>
+    <div className="rounded-lg flex flex-col p-4 pt-[21px] bg-neutral-800">
+      <div className="p-2">
         <p className="text-center text-xl font-semibold text-yellow-400">Attempted Stack</p>
       </div>
       <div>
