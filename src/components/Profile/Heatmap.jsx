@@ -3,7 +3,7 @@ import { Tooltip as MuiTooltip } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { getCalendarData } from '../../firebase/firestore'
 
-const Heatmap = () => {
+const Heatmap = ({ days }) => {
   const [calendarData, setCalendarData] = useState(null)
 
   const getRangeDate = (n) => {
@@ -31,8 +31,7 @@ const Heatmap = () => {
 
   const fetchData = async () => {
     try {
-      const range = getRangeDate(365)
-      console.log(range)
+      const range = getRangeDate(days)
       const data = await getCalendarData(range.pastDateStr)
 
       if (data.length === 0 || data[0].date !== range.pastDateStr) {
@@ -57,7 +56,7 @@ const Heatmap = () => {
 
   return (
     <div className="rounded-lg h-auto w-full bg-neutral-800">
-      <div className="h-[180px] min-h-[180px] w-full pl-[36px] pt-[14px]">
+      <div className="h-[180px] min-h-[180px] w-full p-[16px] pt-[14px]">
         {calendarData && 
           <ActivityCalendar
             data={calendarData}
