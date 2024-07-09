@@ -3,7 +3,7 @@ import Bar from "./Bar"
 const Solved = ({difficulty, solved, total}) => {
   return (
     <div>
-      <div className='flex justify-between w-[200px] mb-1'>
+      <div className='flex justify-between w-full mb-1'>
         <div className='flex items-center'>
           <p className='w-[50px] text-[#9FA0A5] text-sm'>{difficulty}</p>
 
