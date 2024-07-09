@@ -10,20 +10,17 @@ const ControlContainer = () => {
   useEffect(() => {getAttempts(setItemLists)}, [])
 
   return (
-    <div className="control-container flex flex-row overflow-visible">
-      <div className="basis-1/5 min-w-[300px] m-0">
-        <div>
+    <div className="control-container flex flex-col min-w-[840px]">
+      <div>
+          <SearchBar />
+      </div>
+      <div className="flex flex-row mt-4">
+        <div className="flex-auto w-1/3 h-[500px]">
           <AttemptedStack itemLists={itemLists}/>
         </div>
-      </div>
-      <div className="basis-4/5 lc-lg:max-w-[calc(100%_-_316px)] w-full ml-4">
-        <div>
-          <SearchBar />
-        </div>
-        <div className="mt-4">
+        <div className="flex-auto w-2/3 h-[500px] ml-5">
           <RecentContainer />
         </div>
-
       </div>
     </div>
   )
