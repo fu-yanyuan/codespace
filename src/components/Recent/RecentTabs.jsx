@@ -25,11 +25,11 @@ const RecentTabs = ({setTabValue}) => {
               onClick={() => handleTabClick(3)}>Recent Solved All</a>
         </div>
       </div>
-      <div className="flex-none gap-2">
+      {/* <div className="flex-none gap-2">
         <div className="form-control">
           <input type="text" placeholder="Search" className="input input-sm input-bordered w-24 md:w-auto" />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
