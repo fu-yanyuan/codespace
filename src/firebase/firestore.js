@@ -1,5 +1,21 @@
 import { db } from "./firebase";
-import { collection, doc, query, where, getDoc, getDocs, orderBy, limit, updateDoc, serverTimestamp, runTransaction } from 'firebase/firestore';
+import { collection, doc, query, where, getDoc, getDocs, orderBy, limit, updateDoc, serverTimestamp, runTransaction, onSnapshot } from 'firebase/firestore';
+
+export const attemptsListener = async (setData) => {
+  const q = query(collection(db, "leetcode"), where('status', '==', 1), orderBy('last_modified', 'desc'))
+  const unsubscribe = onSnapshot(q, 
+    (querySnapshot) => {
+      const items = querySnapshot.docs.map(doc => ({
+        ...doc.data()
+      }))
+      setData(items)
+    },
+    (error) => {
+      console.log(err)
+    })
+
+    return unsubscribe
+}
 
 export const getAttempts = async (setItemList) => {
     try {
@@ -171,7 +187,7 @@ export const attemptProblem = async (e, data) => {
         last_modified: serverTimestamp() 
       })
   
-      window.location.reload()
+      // window.location.reload()
     } catch (err) {
       console.log(err)
     }

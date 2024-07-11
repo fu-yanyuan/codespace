@@ -1,13 +1,15 @@
 import AttemptedStack from "./AttemptedStack/AttemptedStack"
 import SearchBar from "./ControlBar/SearchBar"
 import RecentContainer from "./Recent/RecentContainer"
-import { getAttempts } from "../firebase/firestore"
+import { attemptsListener } from "../firebase/firestore"
 import { useState, useEffect } from "react"
 
 const ControlContainer = () => {
   const [itemLists, setItemLists] = useState(null)
 
-  useEffect(() => {getAttempts(setItemLists)}, [])
+  useEffect(() => {
+    const unsubscribe = attemptsListener(setItemLists)
+  }, [])
 
   return (
     <div className="control-container flex flex-col min-w-[840px]">
