@@ -14,7 +14,23 @@ export const attemptsListener = async (setData) => {
       console.log(err)
     })
 
-    return unsubscribe
+  return unsubscribe
+}
+
+export const recentSolvedNListener = async (setData, N) => {
+  const q = query(collection(db, "leetcode"), where('status', '==', 9), orderBy('first_solved', 'desc'), limit(N))
+  const unsubscribe = onSnapshot(q, 
+    (querySnapshot) => {
+      const items = querySnapshot.docs.map(doc => ({
+        ...doc.data()
+      }))
+      setData(items)
+    },
+    (error) => {
+      console.log(err)
+    })
+
+  return unsubscribe
 }
 
 export const getAttempts = async (setItemList) => {
@@ -152,7 +168,7 @@ export const solveProblem = async (e, data) => {
         })
       })    
   
-      window.location.reload()
+      // window.location.reload()
     } catch (err) {
       console.log(err)
     }
@@ -169,7 +185,7 @@ export const modifyProblem = async (e, data) => {
         last_modified: serverTimestamp() 
       })
   
-      window.location.reload()
+      // window.location.reload()
     } catch (err) {
       console.log(err)
     }
