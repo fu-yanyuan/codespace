@@ -1,31 +1,34 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { db } from "../../firebase/firebase"
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import Line from "../Basic/Line";
 import SearchResult from "./SearchResult";
 
 const SearchBar = () => {
   const [number, setNumber] = useState('')
   const [item, setItem] = useState(null)
+  const unsubRef = useRef(null)
 
   const search = async (event) => {
     event.preventDefault()
 
-    try {
-      const docRef = doc(db, "leetcode", number);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setItem(docSnap.data())
-        console.log(docSnap.data())
-      } else {
-        setItem(null)
-      }
-    } catch (err) {
-      console.log(err)
+    // unsubscribe the previous listener if it exists
+    if (unsubRef.current) {
+      unsubRef.current()
     }
+
+    const unsub = onSnapshot(doc(db, "leetcode", number), (doc) => {
+      setItem(doc.data())
+    }, (error) => {
+      console.log(error)
+    })
     
+    unsubRef.current = unsub
   }
+
+  useEffect(() => {
+
+  }, [number])
 
   const handleChange = (event) => {
     setNumber(event.target.value)
