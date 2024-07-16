@@ -66,7 +66,7 @@ const Heatmap = ({ days }) => {
               </MuiTooltip>
             )}
             theme={{
-              light: ['#f0f0f0', '#c4edde', '#7ac7c4', '#f73859', '#384259'],
+              light: ['#383838', '#838A2D', '#7DB9B6', '#E96479', '#F5E9CF'],
               dark: ['#383838', '#838A2D', '#7DB9B6', '#E96479', '#F5E9CF'],
             }}
         />}
