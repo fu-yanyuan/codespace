@@ -31,7 +31,7 @@ const RecentPagination = ({ allitems, itemsPerPage }) => {
   return (
     <>
       {/* <Items currentItems={currentItems} /> */}
-      <div>
+      <div className='divide-y divide-neutral-500'>
         {currentItems?.map((item) => <RecentItem key={item.number} data={item}/>)}  
       </div>
       <ReactPaginate
