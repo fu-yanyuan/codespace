@@ -1,17 +1,18 @@
 import RecentTabs from "./RecentTabs"
-import RecentItem from "./RecentItem"
 import RecentPagination from "./RecentPagination"
+import AttemptingItem from "./AttemptingItem"
 import { useState, useEffect } from "react"
-import { getRecentSolvedN, getRecentSolvedAll, getRecentModified, recentSolvedNListener } from "../../firebase/firestore"
-import { set } from "firebase/database"
+import { getRecentSolvedN, getRecentSolvedAll, getRecentModified, recentSolvedNListener, attemptsListener } from "../../firebase/firestore"
 
 const RecentContainer = () => {
   const [tabValue, setTabValue] = useState(1)
   const [recentSolvedN, setRecentSolvedN] = useState([])
   const [itemList, setItemList] = useState([])
+  const [attempting, setAttempting] = useState(null)
 
   useEffect(() => {
     const unsubscribe = recentSolvedNListener(setRecentSolvedN, 15)
+    const unsubscribe2 = attemptsListener(setAttempting)
   }, [])
 
   const handleItemList = async () => {
@@ -19,14 +20,17 @@ const RecentContainer = () => {
       setItemList(recentSolvedN)
     } else if (tabValue === 2) {
       getRecentModified(setItemList, 15)
-    } else {
+    } else if (tabValue === 3) {
       getRecentSolvedAll(setItemList)
+    } else {
+      setAttempting(attempting)
+      // setItemList(attempting)
     }
   }
 
   useEffect(() => {
     handleItemList()
-  }, [tabValue, recentSolvedN])
+  }, [tabValue, recentSolvedN, attempting])
 
   return (
     <div className="rounded-lg max-w-full w-full bg-neutral-800">
@@ -35,7 +39,11 @@ const RecentContainer = () => {
       </div>
       <div className="py-2">
         {/* {itemLists?.map((item) => <RecentItem key={item.number} data={item}/>)} */}
-        <RecentPagination allitems={itemList} itemsPerPage={15} />
+        { tabValue <= 3 ?
+            <RecentPagination allitems={itemList} itemsPerPage={15} />
+          : <div className='divide-y divide-neutral-500'>{attempting?.map((item) => <AttemptingItem key={item.number} data={item}/>)}</div>
+        }
+        
       </div>   
     </div>
   )

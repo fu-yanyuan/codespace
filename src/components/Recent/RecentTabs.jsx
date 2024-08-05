@@ -23,6 +23,8 @@ const RecentTabs = ({setTabValue}) => {
               onClick={() => handleTabClick(2)}>Recent Modified</a>
           <a className={`tab tab-bordered rounded-lg font-bold text-base text-neutral-100 hover:bg-neutral-700 ${activeTab === 3 ? 'tab-active outline outline-green-400' : ''}`} 
               onClick={() => handleTabClick(3)}>Recent Solved All</a>
+          <a className={`tab tab-bordered rounded-lg font-bold text-base text-yellow-400 hover:bg-neutral-700 ${activeTab === 4 ? 'tab-active outline outline-yellow-400' : ''}`} 
+              onClick={() => handleTabClick(4)}>Attempting</a>
         </div>
       </div>
       {/* <div className="flex-none gap-2">
